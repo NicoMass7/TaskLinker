@@ -3,7 +3,7 @@
 {% block title %}{{ employe.prenom }} {{ employe.nom }} - {{ parent() }}{% endblock %}
 
 {% block header %}
-    <h1>{{ employe.prenom }} {{ employe.nom }}</h1>
+<h1>{{ employe.prenom }} {{ employe.nom }}</h1>
 {% endblock %}
 
 {% block body %}
@@ -14,9 +14,11 @@
 {{ form_row(form.prenom) }}
 {{ form_row(form.email) }}
 <div class="form-flex">
-    {{ form_row(form.dateArrivee) }}
-    {{ form_row(form.statut) }}
+  {{ form_row(form.dateArrivee) }}
+  {{ form_row(form.statut) }}
 </div>
+{{ form_row(form.admin) }}
+
 <button class="button button-submit">Enregistrer</button>
 {{ form_end(form) }}
 

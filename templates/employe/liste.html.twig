@@ -3,44 +3,56 @@
 {% block title %}Liste des employés - {{ parent() }}{% endblock %}
 
 {% block header %}
-    <h1>Équipe</h1>
+{% if is_granted('ROLE_ADMIN') %}
+<div class="flex-header">
+  <h1>Équipe</h1>
+  <a class="button" href="{{ path('app_register') }}">Ajouter un employé</a>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block body %}
 
 <table id="team-container">
-    <thead>
-        <tr>
-            <th>Prénom, Nom</th>
-            <th>Statut</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for employe in employes %}
-            <tr>
-                <td>
-                    <div class="employee-infos">
-                        <div class="employee-avatar">
-                            {{ employe.prenom | first }}{{ employe.nom | first }}
-                        </div>
-                        <div class="employee-coords">
-                            <strong>{{ employe.prenom }} {{ employe.nom }}</strong>
-                            <span>{{ employe.email }}</span>
-                        </div>
-                    </div>
-                </td>
-                <td>{{ employe.statut }}</td>
-                <td>
-                    <a class="button button-edit-team" href="{{ path('app_employe_edit', {id: employe.id}) }}">
-                        Éditer
-                    </a>
-                    <a class="delete-team" href="{{ path('app_employe_delete', {id: employe.id}) }}">
-                        Supprimer
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
+  <thead>
+    <tr>
+      <th>Prénom, Nom</th>
+      <th>Statut</th>
+      <th>Rôle</th>
+      {% if is_granted('ROLE_ADMIN') == true %}
+      <th>Actions</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for employe in employes %}
+    <tr>
+      <td>
+        <div class="employee-infos">
+          <div class="employee-avatar">
+            {{ employe.prenom | first }}{{ employe.nom | first }}
+          </div>
+          <div class="employee-coords">
+            <strong>{{ employe.prenom }} {{ employe.nom }}</strong>
+            <span>{{ employe.email }}</span>
+          </div>
+        </div>
+      </td>
+      <td>{{ employe.statut.value }}</td>
+      <td>{% if 'ROLE_ADMIN' in employe.roles %}Chef de projet{% else %}Collaborateur{% endif %}</td>
+      {% if is_granted('ROLE_ADMIN') == true %}
+      <td>
+        <a class="button button-edit-team" href="{{ path('app_employe_edit', {id: employe.id}) }}">
+          Éditer
+        </a>
+        <a class="delete-team" href="{{ path('app_employe_delete', {id: employe.id}) }}">
+          Supprimer
+        </a>
+      </td>
+      {% endif %}
+
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

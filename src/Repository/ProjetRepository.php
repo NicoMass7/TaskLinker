@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Projet;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Employe;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Projet>
@@ -16,33 +17,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProjetRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Projet::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Projet::class);
+  }
 
-//    /**
-//     * @return Projet[] Returns an array of Projet objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Projet
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+  public function findProjetsByEmploye(Employe $employe): array
+  {
+    return $this->createQueryBuilder('p')
+      ->join('p.employes', 'e')
+      ->where('p.archive = false')
+      ->andWhere('e.id = :employeId')
+      ->setParameter('employeId', $employe->getId())
+      ->getQuery()
+      ->getResult();
+  }
 }

@@ -1,0 +1,24 @@
+{% extends 'auth/logout.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<h1>Inscription</h1>
+
+{{ form_errors(registrationForm) }}
+
+{{ form_start(registrationForm) }}
+
+{{ form_row(registrationForm.nom) }}
+{{ form_row(registrationForm.prenom) }}
+{{ form_row(registrationForm.email) }}
+<div class="form-flex">
+  {{ form_row(registrationForm.password.first) }}
+  {{ form_row(registrationForm.password.second) }}
+</div>
+<button class="button button-submit">Enregistrer</button>
+<a href="{{ path('app_login') }}" class="link-logout">Vous avez déjà un compte ?</a>
+
+{{ form_end(registrationForm) }}
+
+{% endblock %}

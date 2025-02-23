@@ -3,7 +3,7 @@
 {% block title %}{{ projet.nom }} - {{ parent() }}{% endblock %}
 
 {% block header %}
-    <h1>{{ projet.nom }}</h1>
+<h1>{{ projet.nom }}</h1>
 {% endblock %}
 
 {% block body %}
@@ -13,7 +13,9 @@
 {{ form_row(form.nom) }}
 {{ form_row(form.employes) }}
 <br>
+{% if is_granted('IS_AUTHENTICATED') == true %}
 <button class="button button-submit">Modifier</button>
+{% endif %}
 {{ form_end(form) }}
 
 {% endblock %}
