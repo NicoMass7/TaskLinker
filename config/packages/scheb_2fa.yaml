@@ -1,0 +1,12 @@
+scheb_two_factor:
+  security_tokens:
+    - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+    - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
+    - Acme\AuthenticationBundle\Token\CustomAuthenticationToken
+  email:
+    enabled: true
+    sender_email: "noreply@tasklinker.com"
+    digits: 6
+    mailer: acme.custom_mailer_service
+    code_generator: App\Service\AuthCodeGenerator
+    template: "auth/2fa_form.html.twig"

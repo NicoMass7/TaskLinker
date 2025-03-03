@@ -1,0 +1,11 @@
+{% extends 'auth/base-logout.html.twig' %}
+
+{% block body %}
+<h2>Vérification en 2 étapes</h2>
+<p>Un code de vérification à 6 chiffres a été envoyé à votre adresse e-mail.</p>
+
+<form method="post" action="{{ path('2fa_login_check') }}">
+  <input type="text" name="_auth_code" required placeholder="Code 2FA">
+  <button type="submit">Valider</button>
+</form>
+{% endblock %}

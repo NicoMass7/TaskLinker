@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Employe;
 use App\Form\EmployeType;
 use App\Repository\EmployeRepository;
 use Doctrine\ORM\EntityManagerInterface;
